@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}-Yangi yangilik qo;shish{% endblock title %}
+
+{% block content %}
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>Yangilik qo‘shish</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container my-5">
+    <h2 class="mb-4">Yangilik qo‘shish</h2>
+    
+    <form  enctype="multipart/form-data" method="POST">
+      {% csrf_token %}
+      <!-- Sarlavha -->
+      <div class="mb-3">
+        <label for="title" class="form-label">Sarlavha</label>
+        <input type="text" class="form-control" name="title" id="title" placeholder="Yangilik sarlavhasi">
+      </div>
+
+      <!-- Kategoriya -->
+      <div class="mb-3">
+        <label for="category" class="form-label">Kategoriya</label>
+        <select class="form-select" id="category" name="category">
+          <option selected disabled>Kategoriya tanlang</option>
+          {% for cat in categories %}
+            <option value="{{ cat.id }}">{{ cat.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Rasm yuklash -->
+      <div class="mb-3">
+        <label for="image" class="form-label">Rasm yuklash</label>
+        <input type="file" class="form-control" id="image" name="image">
+      </div>
+
+      <!-- Kontent -->
+      <div class="mb-3">
+        <label for="content" class="form-label">To‘liq matn</label>
+        <textarea name="content" class="form-control" id="content" rows="6" placeholder="Yangilik matnini kiriting"></textarea>
+      </div>
+
+      <!-- Yuborish tugmasi -->
+      <button type="submit" class="btn btn-primary">Saqlash</button>
+    </form>
+  </div>
+
+  <!-- Bootstrap JS (ixtiyoriy, agar kerak bo‘lsa) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock content %}
