@@ -1,34 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kun.uz {% block title %}{% endblock title %}</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kun.uz {% block title %}{% endblock title %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="{% url 'home' %}">Kun.uz</a>
-    </div>
-  </nav>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">Kun.uz</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-  <!-- Main Content -->
-  <main class="container mt-4 mb-5">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <!-- Yangi post tugmasi -->
+                        <a href="{% url 'add_news' %}" 
+                           class="btn btn-outline-light" 
+                           id="addPostBtn" 
+                           onclick="hideAddPostBtn()">
+                            <span class="me-1">+</span> Yangi post
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sahifa kontenti -->
     {% block content %}
     {% endblock content %}
 
-    <!-- Back to Home Button -->
-    
-  </main>
+    <!-- Footer -->
+    <footer class="bg-dark text-white mt-5 p-3 text-center">
+        &copy; 2025 Kun.uz. All rights reserved.
+    </footer>
 
-  <!-- Footer -->
-  <footer class="bg-dark text-white text-center py-3 mt-5">
-    &copy; 2025 Kun.uz. All rights reserved.
-  </footer>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>  
+    <!-- Tugmani yashirish uchun JavaScript -->
+    <script>
+        function hideAddPostBtn() {
+            const btn = document.getElementById('addPostBtn');
+            btn.style.display = 'none';
+        }
+    </script>
+</body>
+
 </html>

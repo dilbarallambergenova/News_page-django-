@@ -1,32 +1,51 @@
 {% extends "base.html" %}
+
 {% block title %}- Bosh sahifa{% endblock title %}
+
 {% block content %}
   <!-- Main Content -->
   <div class="container my-4">
     <div class="row">
-      
-      <!-- So'ngi yangiliklar -->
+
+      <!-- Asosiy qism -->
       <div class="col-md-8">
+
+        <!-- Filter tugmasi -->
+        <div class="d-flex justify-content-end mb-3">
+          <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#filterModal">
+            <i class="bi bi-funnel-fill"></i> Filter
+          </button>
+        </div>
+
+        <!-- Faol filterlar haqida xabar -->
+        {% if request.GET.title or request.GET.category or request.GET.content %}
+          <div class="alert alert-info">
+            <strong>Faol filterlar:</strong>
+            {% if request.GET.title %} Sarlavha: <em>{{ request.GET.title }}</em> {% endif %}
+            {% if request.GET.category %} | Kategoriya ID: <em>{{ request.GET.category }}</em> {% endif %}
+            {% if request.GET.content %} | Matn: <em>{{ request.GET.content }}</em> {% endif %}
+          </div>
+        {% endif %}
+
+        <!-- So'ngi yangiliklar -->
         {% if latest_news %}
         <h2 class="mb-4">So'ngi yangiliklar</h2>
 
         {% for item in latest_news %}
-         <div class="card mb-4">
-           <div class="row g-0">
-             <div class="col-md-4">
-                <img src="{{ item.image.url }}" class="img-fluid rounded-start"
-                  alt="{{ new.title }}">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-
-            <h5 class="card-title">{{ item.title }}</h5>
-            <p class="card-text">{{ item.content|truncatewords:30 }}</p>
-            <a href="{% url 'news_detail' item.id %}" class="btn btn-primary">Batafsil</a>
+        <div class="card mb-4">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="{{ item.image.url }}" class="img-fluid rounded-start" alt="{{ item.title }}">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{ item.title }}</h5>
+                <p class="card-text">{{ item.content|truncatewords:30 }}</p>
+                <a href="{% url 'news_detail' item.id %}" class="btn btn-primary">Batafsil</a>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
         {% endfor %}
         {% endif %}
       </div>
@@ -34,7 +53,7 @@
       <!-- Sidebar -->
       <div class="col-md-4">
 
-        <!-- Categories -->
+        <!-- Kategoriyalar -->
         <h4>Kategoriyalar</h4>
         <ul class="list-group mb-4">
           {% for category in categories %}
@@ -56,5 +75,26 @@
       </div>
     </div>
   </div>
-{% endblock content %}
 
+  <!-- Filter Modal -->
+  <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form method="GET" enctype="multipart/form-data">
+          <div class="modal-header">
+            <h5 class="modal-title" id="filterModalLabel">Filtrlash</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Yopish"></button>
+          </div>
+          <div class="modal-body">
+            {% csrf_token %}
+            {{ filter_form.as_p }}
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Filterlash</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
