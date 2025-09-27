@@ -7,6 +7,5 @@ urlpatterns = [
     path('news/<int:pk>/',news_detail_view,name='news_detail'),
     path('news/add/',add_news_view,name='add_news'),
     path('news/<int:pk>/delete',delete_news_view,name='delete_news'),
-
 ]
 

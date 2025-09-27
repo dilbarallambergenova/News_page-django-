@@ -73,7 +73,7 @@ def filter_news_view(request):
     data={
         'latest_news':news_list,
         'filter_form':filter_form,
-        'categories':Category.objects.all()
+        'categories': Category.objects.all()
     }
     return render(request,'index.html',data)
     

@@ -33,9 +33,9 @@ class FilterForm(forms.ModelForm):
         required=False,
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Matn bo‘yicha qidirish'})
     )
-    # class Meta:
-    #     model=New
-    #     fields=['title','content','category']
+    class Meta:
+        model=New
+        fields=['title','content','category']
     
 
 
