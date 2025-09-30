@@ -206,3 +206,8 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 media/
+
+#deploy
+pycache/
+db.sqlite3
+.env                                                    
